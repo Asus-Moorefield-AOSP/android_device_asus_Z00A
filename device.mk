@@ -13,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+DEVICE_PATH := device/asus/Z00A
 
 PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
@@ -26,37 +27,31 @@ $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-dalv
 # call hwui memory config
 $(call inherit-product-if-exists, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
-DEVICE_PACKAGE_OVERLAYS := \
-    device/asus/Z00A/overlay
+#DEVICE_PACKAGE_OVERLAYS := \
+#    $(DEVICE_PATH)/overlay
 
 # Boot image Signature
 PRODUCT_COPY_FILES += \
-    device/asus/Z00A/keys/boot_z00a.sig:install/bin/boot.sig
+    $(DEVICE_PATH)/keys/boot_z00a.sig:install/bin/boot.sig
 
 PRODUCT_COPY_FILES += \
-    frameworks/native/data/etc/android.hardware.nfc.xml:system/etc/permissions/android.hardware.nfc.xml \
-    frameworks/native/data/etc/android.hardware.nfc.hce.xml:system/etc/permissions/android.hardware.nfc.hce.xml
+    frameworks/native/data/etc/android.hardware.nfc.xml:vendor/etc/permissions/android.hardware.nfc.xml \
+    frameworks/native/data/etc/android.hardware.nfc.hce.xml:vendor/etc/permissions/android.hardware.nfc.hce.xml
 
 # NFC
 PRODUCT_COPY_FILES += \
-    device/asus/Z00A/nfc/libnfc-brcm.conf:system/etc/libnfc-brcm.conf \
-    device/asus/Z00A/nfc/libnfc-brcm-20795a20.conf:system/etc/libnfc-brcm-20795a20.conf
+    $(DEVICE_PATH)/nfc/libnfc-brcm.conf:vendor/etc/libnfc-brcm.conf \
+    $(DEVICE_PATH)/nfc/libnfc-brcm-20795a20.conf:vendor/etc/libnfc-brcm-20795a20.conf
 
-PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
-    sys.nfc.project_id_str=ze551ml \
-    sys.nfc.loc=gold \
-    sys.nfc.brcm.cfg=/etc/libnfc-brcm.conf \
-    sys.nfc.brcm.chip_cfg=/etc/libnfc-brcm-20795a20.conf \
-    ro.nfc.conf=mofd-ffd2-a \
-    ro.nfc.clk=pll
 
 # NFC packages
 PRODUCT_PACKAGES += \
     nfc_nci.bcm2079x.default \
     NfcNci \
-    Tag \
-    android.hardware.nfc@1.0-impl-bcm \
-    android.hardware.nfc@1.0-service
+    Tag
+
+## Properties
+TARGET_SYSTEM_PROP += $(DEVICE)/system.prop
 
 $(call inherit-product-if-exists, vendor/asus/Z00A/Z00A-vendor.mk)
 

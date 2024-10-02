@@ -14,21 +14,23 @@
 # limitations under the License.
 #
 
+DEVICE_PATH := device/asus/Z00A
+
 # inherit from common mofd-common
 -include device/asus/mofd-common/BoardConfigCommon.mk
 
-# Charger
-BOARD_HEALTHD_CUSTOM_CHARGER_RES := device/asus/Z00A/charger/images
-
 # Mkbootimg
-BOARD_BOOT_KEY := device/asus/Z00A/keys/boot_z00a.sig
-BOARD_RECOVERY_KEY := device/asus/Z00A/keys/recovery_z00a.sig
+BOARD_BOOT_KEY := $(DEVICE_PATH)/keys/boot_z00a.sig
+BOARD_RECOVERY_KEY := $(DEVICE_PATH)/keys/recovery_z00a.sig
 
 # Partitions
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 59261286400
 
+## Properties
+TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+
 # Require Ifwi version
-TARGET_BOARD_INFO_FILE ?= device/asus/Z00A/board-info.txt
+TARGET_BOARD_INFO_FILE ?= $(DEVICE_PATH)/board-info.txt
 
 # Use the non-open-source parts, if they're present
 -include vendor/asus/Z00A/BoardConfigVendor.mk

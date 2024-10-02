@@ -15,4 +15,9 @@
 #
 
 PRODUCT_MAKEFILES := \
-     $(LOCAL_DIR)/device.mk
+     $(LOCAL_DIR)/lineage_Z00A.mk
+
+COMMON_LUNCH_CHOICES := \
+    lineage_Z00A-eng \
+    lineage_Z00A-user \
+    lineage_Z00A-userdebug
